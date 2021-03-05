@@ -8,7 +8,7 @@ using namespace std;
 
 struct coordinate
 {
-	int x = 0, y = 0;
+	int x, y;
 };
 
 struct word
@@ -19,24 +19,24 @@ struct word
 
 class WordSnake
 {
-	public:
-		WordSnake(int _height, int _width);
-		void place(word &_givenWord, bool &result);
-		void print() const;
+public:
+	WordSnake(int _height, int _width);
+	void place(word &_givenWord);
+	void print() const;
 
-	private:
-		bool placeWordToMatrix();
-		bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
-		bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
-		string getNextDirection(string currDirection) const;
-		bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
-		vector<vector<char>> wordMatrix;
-		int height;
-		int width;
-		word givenWord;
+private:
+	bool placeWordToMatrix();
+	bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
+	bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
+	string getNextDirection(string currDirection) const;
+	bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
+	vector<vector<char>> wordMatrix;
+	int height;
+	int width;
+	word givenWord;
 };
 
-bool validateLine(word &givenWord, int &height, int &width);
+bool isWordValid(word &givenWord, int &height, int &width);
 bool readLine(istringstream &lineStream, word &givenWord);
 bool getMatrixSize(ifstream &inputFile, int &height, int &width);
 void openFile(ifstream &file);
@@ -59,24 +59,19 @@ int main()
 			istringstream lineStream(line);
 
 			word givenWord;
-			bool isLineValid = false;
-			bool isPlacementSuccessful = false;
-
 			if (readLine(lineStream, givenWord)) // If number of inputs in the line is 5
 			{
-				isLineValid = validateLine(givenWord, height, width);
+				if(isWordValid(givenWord, height, width))
+				{
+					snake.place(givenWord);
+					snake.print();
+				};
 			}
 			else
 			{
 				cout << "Invalid line! Number of values is different than 5." << endl;
 			}
 
-			if (isLineValid)
-			{
-				bool isSuccessful;
-				snake.place(givenWord, isSuccessful);
-				snake.print();
-			}
 			cout << endl;
 		}
 	}
@@ -89,7 +84,7 @@ int main()
 }
 
 // Returns true if the line is given correctly
-bool validateLine(word &givenWord, int &height, int &width)
+bool isWordValid(word &givenWord, int &height, int &width)
 {
 	bool isValidX = givenWord.start.x >= 0 && givenWord.start.x < height;
 	bool isValidY = givenWord.start.y >= 0 && givenWord.start.y < width;
@@ -196,13 +191,13 @@ void openFile(ifstream &file)
 
 WordSnake::WordSnake(int _height, int _width)
 {
-	wordMatrix = vector<vector<char>> (_height, vector<char>(_width, '-'));
+	wordMatrix = vector<vector<char>>(_height, vector<char>(_width, '-'));
 	word givenWord;
 	height = _height;
 	width = _width;
 }
 
-void WordSnake::place(word &_givenWord, bool &result)
+void WordSnake::place(word &_givenWord)
 {
 	givenWord = _givenWord;
 
@@ -211,27 +206,25 @@ void WordSnake::place(word &_givenWord, bool &result)
 	if (isPlacementSuccessful)
 	{
 		cout << "\"" << givenWord.text << "\" "
-				<< "was put into matrix with given starting point: "
-				<< givenWord.start.x << "," << givenWord.start.y
-				<< endl;
+			 << "was put into matrix with given starting point: "
+			 << givenWord.start.x << "," << givenWord.start.y
+			 << endl;
 
 		cout << "direction: " << givenWord.direction << " "
-				<< "orientation: " << givenWord.orientation
-				<< endl;
+			 << "orientation: " << givenWord.orientation
+			 << endl;
 	}
 	else
 	{
 		cout << "\"" << givenWord.text << "\" "
-				<< "could not be put into matrix with given starting point: "
-				<< givenWord.start.x << "," << givenWord.start.y
-				<< endl;
+			 << "could not be put into matrix with given starting point: "
+			 << givenWord.start.x << "," << givenWord.start.y
+			 << endl;
 
 		cout << "direction: " << givenWord.direction << " "
-				<< "orientation: " << givenWord.orientation
-				<< endl;
+			 << "orientation: " << givenWord.orientation
+			 << endl;
 	}
-
-	result = isPlacementSuccessful;
 }
 
 // Prints matrix
@@ -268,7 +261,7 @@ bool WordSnake::placeWordToMatrix()
 		for (int i = 1; i < givenWord.text.length(); i++) // Start from the second char
 		{
 			char currChar = givenWord.text[i];
-			
+
 			isSuccesful = placeLetterToMatrix(newMatrix, currChar, currCoor);
 
 			if (!isSuccesful)
