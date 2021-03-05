@@ -19,7 +19,8 @@ struct word
 
 void printMatrix(const vector<vector<char>> &matrix);
 bool placeWordToMatrix(const word &givenWord, vector<vector<char>> &matrix);
-bool getAvailability(const coordinate &cell, vector<vector<char>> &matrix);
+bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, const word &givenWord, coordinate &currCoor);
+bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix);
 string getNextDirection(string currDirection, string orientation);
 bool getNextCoordinate(const coordinate &current, coordinate &next, const coordinate &bounds, string direction);
 bool validateLine(word &givenWord, int &height, int &width);
@@ -119,48 +120,23 @@ bool placeWordToMatrix(const word &givenWord, vector<vector<char>> &matrix)
 {
 	vector<vector<char>> newMatrix = matrix;
 
-	coordinate bounds;
-	bounds.x = newMatrix.size() - 1;
-	bounds.y = newMatrix[0].size() - 1; // It is guaranteed that first element of vector is
-										// also a vector. So, newMatrix[0].size() would not throw
-										// any exception.
-
 	char currChar = givenWord.text[0];
 	coordinate currCoor = givenWord.start;
-	coordinate nextCoor;
 
 	bool isSuccesful = true;
 
-	if (getAvailability(currCoor, newMatrix))
+	if (getCellAvailability(currCoor, newMatrix))
 	{
 		newMatrix[currCoor.x][currCoor.y] = currChar; // Place the first character as we know where to put it
 
 		for (int i = 1; i < givenWord.text.length(); i++) // Start from the second char
 		{
 			char currChar = givenWord.text[i];
-			string currDirection = givenWord.direction;
+			
+			isSuccesful = placeLetterToMatrix(newMatrix, currChar, givenWord, currCoor);
 
-			bool isCellAvailable;
-			int index = 0;
-			do
+			if (!isSuccesful)
 			{
-				isCellAvailable = getNextCoordinate(currCoor, nextCoor, bounds, currDirection) && getAvailability(nextCoor, newMatrix);
-
-				string nextDirection = getNextDirection(currDirection, givenWord.orientation);
-				currDirection = nextDirection;
-
-				index++;
-
-			} while (!isCellAvailable && index < 4);
-
-			if (isCellAvailable)
-			{
-				newMatrix[nextCoor.x][nextCoor.y] = currChar;
-				currCoor = nextCoor;
-			}
-			else
-			{
-				isSuccesful = false;
 				break;
 			}
 		}
@@ -175,9 +151,43 @@ bool placeWordToMatrix(const word &givenWord, vector<vector<char>> &matrix)
 	return isSuccesful;
 }
 
+bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, const word &givenWord, coordinate &currCoor)
+{
+	coordinate bounds;
+	bounds.x = matrix.size() - 1;	
+	bounds.y = matrix[0].size() - 1;	// It is guaranteed that first element of vector is
+										// also a vector. So, newMatrix[0].size() would not throw
+										// any exception.
 
+	string currDirection = givenWord.direction;
+	coordinate nextCoor;
 
-bool getAvailability(const coordinate &cell, vector<vector<char>> &matrix)
+	bool isCellAvailable;
+	int index = 0;
+	do
+	{
+		isCellAvailable = getNextCoordinate(currCoor, nextCoor, bounds, currDirection) && getCellAvailability(nextCoor, matrix);
+
+		string nextDirection = getNextDirection(currDirection, givenWord.orientation);
+		currDirection = nextDirection;
+
+		index++;
+
+	} while (!isCellAvailable && index < 4);
+
+	if (isCellAvailable)
+	{
+		matrix[nextCoor.x][nextCoor.y] = letter;
+		currCoor = nextCoor;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix)
 {
 	return matrix[cell.x][cell.y] == '-';
 }
