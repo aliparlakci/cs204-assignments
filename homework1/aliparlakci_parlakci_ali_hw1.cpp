@@ -61,7 +61,7 @@ int main()
 			word givenWord;
 			if (readLine(lineStream, givenWord)) // If number of inputs in the line is 5
 			{
-				if(isWordValid(givenWord, height, width))
+				if (isWordValid(givenWord, height, width))
 				{
 					snake.place(givenWord);
 					snake.print();
