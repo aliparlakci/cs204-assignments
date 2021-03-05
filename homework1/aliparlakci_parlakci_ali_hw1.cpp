@@ -19,21 +19,21 @@ struct word
 
 class WordSnake
 {
-	public:
-		WordSnake(int _height, int _width);
-		void place(word &_givenWord);
-		void print() const;
+public:
+	WordSnake(int _height, int _width);
+	void place(word &_givenWord);
+	void print() const;
 
-	private:
-		bool placeWordToMatrix();
-		bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
-		bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
-		string getNextDirection(string currDirection) const;
-		bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
-		vector<vector<char>> wordMatrix;
-		int height;
-		int width;
-		word givenWord;
+private:
+	bool placeWordToMatrix();
+	bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
+	bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
+	string getNextDirection(const string &currDirection) const;
+	bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
+	vector<vector<char>> wordMatrix;
+	int height;
+	int width;
+	word givenWord;
 };
 
 bool isWordValid(word &givenWord, int &height, int &width);
@@ -89,7 +89,7 @@ bool isWordValid(word &givenWord, int &height, int &width)
 	bool isValidX = givenWord.start.x >= 0 && givenWord.start.x < height;
 	bool isValidY = givenWord.start.y >= 0 && givenWord.start.y < width;
 
-	if (!isValidX || !isValidY)
+	if ( !(isValidX && isValidY) )
 	{
 		cout << "Starting point is out of range! Point: "
 			 << givenWord.start.x << " "
@@ -122,32 +122,24 @@ bool isWordValid(word &givenWord, int &height, int &width)
 // Returns FALSE if number of inputs in line is NOT exactly 5
 bool readLine(istringstream &lineStream, word &givenWord)
 {
-	bool isFail = false;
-	lineStream >> givenWord.text;
-	isFail = lineStream.fail();
+	lineStream >> givenWord.text 
+			>> givenWord.start.x
+			>> givenWord.start.y
+			>> givenWord.direction
+			>> givenWord.orientation;
 
-	lineStream >> givenWord.start.x;
-	isFail = lineStream.fail();
-
-	lineStream >> givenWord.start.y;
-	isFail = lineStream.fail();
-
-	lineStream >> givenWord.direction;
-	isFail = lineStream.fail();
-
-	lineStream >> givenWord.orientation;
-	isFail = lineStream.fail();
-
-	if (!isFail)
+	if (!lineStream.fail()) // We can get at least 5 inputs
 	{
 		// Check if we can get more entries
 		// If we can, there are more than 5 entries
 		string _;
 		lineStream >> _;
-		isFail = !lineStream.fail(); // We expect lineStream to fail
+		return lineStream.fail(); // We expect lineStream to fail
 	}
-
-	return !isFail; // Success is inverse of fail
+	else
+	{
+		return false; // lineStream could take less than 5 inputs
+	}
 }
 
 // Extracts matrix size from input file's current line
@@ -326,7 +318,7 @@ bool WordSnake::getCellAvailability(const coordinate &cell, vector<vector<char>>
 }
 
 // Rotates the direction with the given orientation and returns the new direction
-string WordSnake::getNextDirection(string currDirection) const
+string WordSnake::getNextDirection(const string &currDirection) const
 {
 	string cw[] = {"r", "d", "l", "u"};
 	string ccw[] = {"r", "u", "l", "d"};
