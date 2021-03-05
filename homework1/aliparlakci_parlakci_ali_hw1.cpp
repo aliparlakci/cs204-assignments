@@ -20,18 +20,18 @@ struct word
 class WordSnake
 {
 	public:
-		WordSnake(int _heigth, int _width);
+		WordSnake(int _height, int _width);
 		void place(word &_givenWord, bool &result);
 		void print() const;
 
 	private:
 		bool placeWordToMatrix();
-		bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor);
+		bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
 		bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
-		string getNextDirection(string currDirection, string orientation) const;
-		bool getNextCoordinate(const coordinate &current, coordinate &next, string direction);
+		string getNextDirection(string currDirection) const;
+		bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
 		vector<vector<char>> wordMatrix;
-		int heigth;
+		int height;
 		int width;
 		word givenWord;
 };
@@ -194,11 +194,11 @@ void openFile(ifstream &file)
 
 /*				WORDSNAKE FUNCTIONS STARTING				*/
 
-WordSnake::WordSnake(int _heigth, int _width)
+WordSnake::WordSnake(int _height, int _width)
 {
-	wordMatrix = vector<vector<char>> (_heigth, vector<char>(_width, '-'));
+	wordMatrix = vector<vector<char>> (_height, vector<char>(_width, '-'));
 	word givenWord;
-	heigth = _heigth;
+	height = _height;
 	width = _width;
 }
 
@@ -237,7 +237,7 @@ void WordSnake::place(word &_givenWord, bool &result)
 // Prints matrix
 void WordSnake::print() const
 {
-	for (int row = 0; row < heigth; row++)
+	for (int row = 0; row < height; row++)
 	{
 		for (int col = 0; col < width; col++)
 		{
@@ -291,7 +291,7 @@ bool WordSnake::placeWordToMatrix()
 //
 // Returns true if it can place the letter. currCoor will be the coordinate of the new letter.
 // Returns false if it cannot place the letter, currCoor will stay same.
-bool WordSnake::placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor)
+bool WordSnake::placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const
 {
 	string currDirection = givenWord.direction;
 	coordinate nextCoor;
@@ -304,7 +304,7 @@ bool WordSnake::placeLetterToMatrix(vector<vector<char>> &matrix, char letter, c
 		isCellAvailable = getNextCoordinate(currCoor, nextCoor, currDirection) && getCellAvailability(nextCoor, matrix);
 
 		// Get a new direction in case we cannot place a letter with the current direction
-		currDirection = getNextDirection(currDirection, givenWord.orientation);
+		currDirection = getNextDirection(currDirection);
 
 		index++;
 
@@ -333,21 +333,21 @@ bool WordSnake::getCellAvailability(const coordinate &cell, vector<vector<char>>
 }
 
 // Rotates the direction with the given orientation and returns the new direction
-string WordSnake::getNextDirection(string currDirection, string orientation) const
+string WordSnake::getNextDirection(string currDirection) const
 {
 	string cw[] = {"r", "d", "l", "u"};
 	string ccw[] = {"r", "u", "l", "d"};
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (orientation == "CW")
+		if (givenWord.orientation == "CW")
 		{
 			if (cw[i] == currDirection)
 			{
 				return i == 3 ? cw[0] : cw[i + 1];
 			}
 		}
-		else if (orientation == "CCW")
+		else if (givenWord.orientation == "CCW")
 		{
 			if (ccw[i] == currDirection)
 			{
@@ -362,11 +362,11 @@ string WordSnake::getNextDirection(string currDirection, string orientation) con
 // Replaces next variable with the next coordinate according to direction.
 //
 // Returns false if there is no suitable cell towards the given direction.
-bool WordSnake::getNextCoordinate(const coordinate &current, coordinate &next, string direction)
+bool WordSnake::getNextCoordinate(const coordinate &current, coordinate &next, string direction) const
 {
 	if (direction == "d")
 	{
-		if (current.x + 1 <= heigth)
+		if (current.x + 1 <= height)
 		{
 			next.x = current.x + 1;
 			next.y = current.y;
