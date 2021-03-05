@@ -19,21 +19,21 @@ struct word
 
 class WordSnake
 {
-public:
-	WordSnake(int _height, int _width);
-	void place(word &_givenWord);
-	void print() const;
+	public:
+		WordSnake(int _height, int _width);
+		void place(word &_givenWord);
+		void print() const;
 
-private:
-	bool placeWordToMatrix();
-	bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
-	bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
-	string getNextDirection(string currDirection) const;
-	bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
-	vector<vector<char>> wordMatrix;
-	int height;
-	int width;
-	word givenWord;
+	private:
+		bool placeWordToMatrix();
+		bool placeLetterToMatrix(vector<vector<char>> &matrix, char letter, coordinate &currCoor) const;
+		bool getCellAvailability(const coordinate &cell, vector<vector<char>> &matrix) const;
+		string getNextDirection(string currDirection) const;
+		bool getNextCoordinate(const coordinate &current, coordinate &next, string direction) const;
+		vector<vector<char>> wordMatrix;
+		int height;
+		int width;
+		word givenWord;
 };
 
 bool isWordValid(word &givenWord, int &height, int &width);
