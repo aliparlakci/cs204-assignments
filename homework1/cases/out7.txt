@@ -1,0 +1,11 @@
+Please enter the name of the file: 
+"therefore" could not be put into matrix with given starting point: 0,1
+direction: r orientation: CW
+- - - - - - - - - 
+
+
+"therefore" was put into matrix with given starting point: 0,8
+direction: r orientation: CW
+e r o f e r e h t 
+
+

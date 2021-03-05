@@ -1,0 +1,15 @@
+Please enter the name of the file: 
+"fructosamine" was put into matrix with given starting point: 1,2
+direction: r orientation: CCW
+a s o t c 
+m i f r u 
+- n e - - 
+
+
+"cryptoxanthin" could not be put into matrix with given starting point: 0,0
+direction: l orientation: CW
+a s o t c 
+m i f r u 
+- n e - - 
+
+

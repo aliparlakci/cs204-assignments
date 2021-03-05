@@ -1,0 +1,6 @@
+Please enter the name of the file: 
+"a" was put into matrix with given starting point: 0,0
+direction: l orientation: CW
+a 
+
+

@@ -1,0 +1,73 @@
+Please enter the name of the file: 
+"sample" was put into matrix with given starting point: 0,0
+direction: r orientation: CW
+s a m p l 
+- - - - e 
+- - - - - 
+- - - - - 
+- - - - - 
+
+
+"puzzle" could not be put into matrix with given starting point: 0,1
+direction: d orientation: CW
+s a m p l 
+- - - - e 
+- - - - - 
+- - - - - 
+- - - - - 
+
+
+"puzzle" was put into matrix with given starting point: 1,1
+direction: l orientation: CW
+s a m p l 
+u p e - e 
+z z l - - 
+- - - - - 
+- - - - - 
+
+
+"apple" was put into matrix with given starting point: 3,2
+direction: d orientation: CCW
+s a m p l 
+u p e - e 
+z z l - - 
+- - a - e 
+- - p p l 
+
+
+"four" was put into matrix with given starting point: 3,0
+direction: u orientation: CCW
+s a m p l 
+u p e - e 
+z z l - - 
+f r a - e 
+o u p p l 
+
+
+"one" could not be put into matrix with given starting point: 2,3
+direction: r orientation: CW
+s a m p l 
+u p e - e 
+z z l - - 
+f r a - e 
+o u p p l 
+
+
+"one" was put into matrix with given starting point: 1,3
+direction: r orientation: CW
+s a m p l 
+u p e o e 
+z z l n e 
+f r a - e 
+o u p p l 
+
+
+"a" was put into matrix with given starting point: 3,3
+direction: l orientation: CW
+s a m p l 
+u p e o e 
+z z l n e 
+f r a a e 
+o u p p l 
+
+
