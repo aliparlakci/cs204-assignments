@@ -1,3 +1,9 @@
+/*	CS204 Spring 2020 - Albert Levi
+ *	Homework 1
+ *	Written by Ali PARLAKCI
+ *	28114, aliparlakci@sabanciuniv.edu
+ */
+
 #include <iostream>
 #include <string>
 #include <fstream>
