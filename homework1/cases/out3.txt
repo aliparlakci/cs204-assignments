@@ -1,0 +1,37 @@
+Please enter the name of the file: 
+"fructosamine" could not be put into matrix with given starting point: 1,0
+direction: r orientation: CCW
+- - - - - 
+- - - - - 
+- - - - - 
+- - - - - 
+- - - - - 
+
+
+"fructosamine" was put into matrix with given starting point: 1,0
+direction: r orientation: CW
+- - - - - 
+f r u c t 
+- - - - o 
+- - - - s 
+e n i m a 
+
+
+"trouble" could not be put into matrix with given starting point: 0,0
+direction: r orientation: CW
+- - - - - 
+f r u c t 
+- - - - o 
+- - - - s 
+e n i m a 
+
+
+"trouble" was put into matrix with given starting point: 2,2
+direction: r orientation: CW
+- - - - - 
+f r u c t 
+e - t r o 
+l b u o s 
+e n i m a 
+
+

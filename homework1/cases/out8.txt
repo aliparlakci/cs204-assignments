@@ -1,0 +1,14 @@
+Please enter the name of the file: 
+"therefore" was put into matrix with given starting point: 8,0
+direction: r orientation: CCW
+e 
+r 
+o 
+f 
+e 
+r 
+e 
+h 
+t 
+
+
