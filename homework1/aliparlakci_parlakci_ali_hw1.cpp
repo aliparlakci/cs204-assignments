@@ -86,6 +86,8 @@ int main()
 		cout << "Invalid number for row and/or column!" << endl;
 	}
 
+	inputFile.close();
+
 	return 0;
 }
 
