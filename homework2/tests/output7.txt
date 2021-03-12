@@ -1,4 +1,2 @@
-Please enter the order mode (A/D): 
-Please enter the numbers in a line: 
-
+Please enter the order mode (A/D): Please enter the numbers in a line: 
 The list is empty at the end of the program and nothing is deleted

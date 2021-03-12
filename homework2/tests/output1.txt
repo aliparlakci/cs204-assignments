@@ -1,9 +1,4 @@
-Please enter the order mode (A/D): 
-Please enter the order mode again (A/D): 
-Please enter the order mode again (A/D): 
-Please enter the order mode again (A/D): 
-Please enter the numbers in a line: 
-
+Please enter the order mode (A/D): Please enter the order mode again (A/D): Please enter the order mode again (A/D): Please enter the order mode again (A/D): Please enter the numbers in a line: 
 Next number: 8
 Deleted nodes: None
 Appended: 8

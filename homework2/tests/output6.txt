@@ -1,6 +1,4 @@
-Please enter the order mode (A/D): 
-Please enter the numbers in a line: 
-
+Please enter the order mode (A/D): Please enter the numbers in a line: 
 Next number: 11
 Deleted nodes: None
 Appended: 11
