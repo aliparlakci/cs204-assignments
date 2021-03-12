@@ -1,0 +1,47 @@
+Please enter the order mode (A/D): 
+Please enter the order mode again (A/D): 
+Please enter the order mode again (A/D): 
+Please enter the order mode again (A/D): 
+Please enter the numbers in a line: 
+
+Next number: 8
+Deleted nodes: None
+Appended: 8
+List content: 8
+
+Next number: 12
+Deleted nodes: 8
+Appended: 12
+List content: 12
+
+Next number: 9
+Deleted nodes: None
+Appended: 9
+List content: 12 9
+
+Next number: 2
+Deleted nodes: None
+Appended: 2
+List content: 12 9 2
+
+Next number: 6
+Deleted nodes: 2
+Appended: 6
+List content: 12 9 6
+
+Next number: 3
+Deleted nodes: None
+Appended: 3
+List content: 12 9 6 3
+
+Next number: 4
+Deleted nodes: 3
+Appended: 4
+List content: 12 9 6 4
+
+Next number: 3
+Deleted nodes: None
+Appended: 3
+List content: 12 9 6 4 3
+
+All the nodes are deleted at the end of the program: 12 9 6 4 3

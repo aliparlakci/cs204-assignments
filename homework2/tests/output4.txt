@@ -1,0 +1,33 @@
+Please enter the order mode (A/D): 
+Please enter the numbers in a line:  
+
+Next number: 8
+Deleted nodes: None
+Appended: 8
+List content: 8
+
+Next number: 10
+Deleted nodes: None
+Appended: 10
+List content: 8 10
+
+Next number: 11
+Deleted nodes: None
+Appended: 11
+List content: 8 10 11
+
+Next number: 10
+10 is already in the list!
+List content: 8 10 11
+
+Next number: 9
+Deleted nodes: 10 11
+Appended: 9
+List content: 8 9
+
+Next number: 10
+Deleted nodes: None
+Appended: 10
+List content: 8 9 10
+
+All the nodes are deleted at the end of the program: 8 9 10

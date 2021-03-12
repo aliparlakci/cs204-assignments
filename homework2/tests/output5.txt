@@ -1,0 +1,44 @@
+Please enter the order mode (A/D): 
+Please enter the numbers in a line: 
+
+Next number: 5
+Deleted nodes: None
+Appended: 5
+List content: 5
+
+Next number: 4
+Deleted nodes: None
+Appended: 4
+List content: 5 4
+
+Next number: 3
+Deleted nodes: None
+Appended: 3
+List content: 5 4 3
+
+Next number: 2
+Deleted nodes: None
+Appended: 2
+List content: 5 4 3 2
+
+Next number: 1
+Deleted nodes: None
+Appended: 1
+List content: 5 4 3 2 1
+
+Next number: 0
+Deleted nodes: None
+Appended: 0
+List content: 5 4 3 2 1 0
+
+Next number: -1
+Deleted nodes: None
+Appended: -1
+List content: 5 4 3 2 1 0 -1
+
+Next number: 100
+Deleted nodes: 5 4 3 2 1 0 -1
+Appended: 100
+List content: 100
+
+All the nodes are deleted at the end of the program: 100
