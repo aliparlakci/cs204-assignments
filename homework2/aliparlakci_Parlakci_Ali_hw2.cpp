@@ -79,8 +79,9 @@ int main()
     {
         cout << "The list is empty at the end of the program and nothing is deleted";
     }
-
+    
     list.destroy();
+    cout << endl;
 }
 
 char getOrderMode()

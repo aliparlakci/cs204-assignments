@@ -1,6 +1,6 @@
 #!/bin/bash
 
-g++ aliparlakci_parlakci_ali_hw2.cpp
+g++ aliparlakci_Parlakci_Ali_hw2.cpp
 
 if [ $? -eq 0 ]
 then
