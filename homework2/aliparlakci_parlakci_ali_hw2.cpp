@@ -20,22 +20,21 @@ class LinkedList
 public:
     int length;
     LinkedList();
-    void push(int _value);
+    void push_back(int _value);
     void insert(int _indice, int _value);
     int at(int _indice) const;
     void remove(int _indice);
     bool contains(int _value) const;
-    void truncate();
+    void destroy();
 private:
     node* head;
-    node* _get(int _indice) const;
-    void _truncate(node* _node);
+    node* getNode(int _indice) const;
+    void truncate(node* _node);
 };
 
 char getOrderMode();
 istringstream getNumbers();
-void removeGreater(int treshold, LinkedList &list);
-void removeSmaller(int treshold, LinkedList &list);
+void prune(int treshold, LinkedList &list, char mode);
 void print(LinkedList &list);
 int test();
 
@@ -59,18 +58,11 @@ int main()
         else
         {
             cout << "Deleted nodes: ";
-            if (orderMode == 'A')
-            {
-                removeGreater(number, list);
-            }
-            else if (orderMode == 'D')
-            {
-                removeSmaller(number, list);
-            }
+            prune(number, list, orderMode);
             cout << endl;
 
-            list.push(number);
             cout << "Appended: " << number << endl;
+            list.push_back(number);
         }
         
         cout << "List content: ";
@@ -88,7 +80,7 @@ int main()
         cout << "The list is empty at the end of the program and nothing is deleted";
     }
 
-    list.truncate();
+    list.destroy();
 }
 
 char getOrderMode()
@@ -120,37 +112,18 @@ istringstream getNumbers()
     return lineStream;
 }
 
-void removeGreater(int treshold, LinkedList &list)
+void prune(int treshold, LinkedList &list, char mode)
 {
     bool didDeleteAny = false;
 
     for (int i = 0; i < list.length; i++)
     {
         int value = list.at(i);
-        if (value > treshold)
+        if ( (mode == 'A' && value > treshold) || (mode == 'D' && value < treshold))
         {
             cout << value << (i == list.length - 1 ? "" : " ");
             list.remove(i);
-            i--;    // Since the ith element is removed i+1st element became the ith element
-            didDeleteAny = true;
-        }
-    }
-
-    cout << (didDeleteAny ? "" : "None");
-}
-
-void removeSmaller(int treshold, LinkedList &list)
-{
-    bool didDeleteAny = false;
-
-    for (int i = 0; i < list.length; i++)
-    {
-        int value = list.at(i);
-        if (value < treshold)
-        {
-            cout << value << (i == list.length - 1 ? "" : " ");
-            list.remove(i);
-            i--;    // Since the ith element is removed i+1st element became the ith element
+            i--;    // Since the ith element is removed, i+1st element became the ith element
             didDeleteAny = true;
         }
     }
@@ -170,7 +143,7 @@ LinkedList::LinkedList() : head(NULL), length(0)
 {
 }
 
-void LinkedList::push(int _value)
+void LinkedList::push_back(int _value)
 {
     insert(length, _value);
 }
@@ -184,7 +157,7 @@ void LinkedList::insert(int _indice, int _value)
     }
     else if (_indice >= 0 && _indice <= length)
     {
-        node *ptr = _get(_indice - 1);
+        node *ptr = getNode(_indice - 1);
         ptr->next = new node(_value, ptr->next);
         length++;
     }
@@ -192,11 +165,11 @@ void LinkedList::insert(int _indice, int _value)
 
 int LinkedList::at(int _indice) const
 {
-    node* ptr = _get(_indice);
+    node* ptr = getNode(_indice);
     return ptr != NULL ? ptr->value : string::npos;
 }
 
-node* LinkedList::_get(int _indice) const
+node* LinkedList::getNode(int _indice) const
 {
     node* ptr = head;
 
@@ -234,7 +207,7 @@ void LinkedList::remove(int _indice)
         }
         else
         {
-            cursor = _get(_indice - 1);
+            cursor = getNode(_indice - 1);
             ptr = cursor->next;
             cursor->next = cursor->next != NULL ? cursor->next->next : NULL;
             delete ptr;
@@ -255,20 +228,20 @@ bool LinkedList::contains(int _value) const
     return doesExist;
 }
 
-void LinkedList::truncate()
+void LinkedList::destroy()
 {
-    _truncate(head);
+    truncate(head);
     head = NULL;
     length = 0;
 }
 
-void LinkedList::_truncate(node* _node)
+void LinkedList::truncate(node* _node)
 {
     if (_node == NULL)
     {
         return;
     }
-    
-    _truncate(_node->next);
+
+    truncate(_node->next);
     delete _node;
 }
