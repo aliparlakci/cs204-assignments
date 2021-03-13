@@ -53,9 +53,8 @@ node* LinkedList::getNode(int indice) const
     if (ptr != NULL && indice >= 0 && indice < length)
     {
         int counter = 0;
-        int value;
 
-        while (ptr != NULL & counter <= indice)
+        while (ptr != NULL && counter <= indice)
         {
             if (counter == indice)
             {
