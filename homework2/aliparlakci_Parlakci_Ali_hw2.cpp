@@ -1,42 +1,24 @@
+/*
+ * CS204 Spring 2020 - Albert Levi
+ * Homework 2
+ * 13 March 2021
+ * Written by Ali PARLAKCI
+ * 28114, aliparlakci@sabanciuniv.edu
+ */
+
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <limits>
 
+#include "aliparlakci_Parlakci_Ali_hw2_linkedlist.h"
+
 using namespace std;
-
-struct node
-{
-    int value;
-    node* next;
-    node() : value(0), next(NULL)
-    {};
-    node(int _value, node* _next) : value(_value), next(_next)
-    {};
-};
-
-class LinkedList
-{
-public:
-    int length;
-    LinkedList();
-    void push_back(int _value);
-    void insert(int _indice, int _value);
-    int at(int _indice) const;
-    void remove(int _indice);
-    bool contains(int _value) const;
-    void destroy();
-private:
-    node* head;
-    node* getNode(int _indice) const;
-    void truncate(node* _node);
-};
 
 char getOrderMode();
 istringstream getNumbers();
 void prune(int treshold, LinkedList &list, char mode);
 void print(LinkedList &list);
-int test();
 
 int main()
 {
@@ -84,6 +66,7 @@ int main()
     cout << endl;
 }
 
+// postcondition: returns A for ascending and D for descending
 char getOrderMode()
 {
     string input;
@@ -102,6 +85,7 @@ char getOrderMode()
     return input == "A" ? 'A' : 'D';
 }
 
+// postcondition: returns a stream of given numbers
 istringstream getNumbers()
 {
     string input;
@@ -113,6 +97,8 @@ istringstream getNumbers()
     return lineStream;
 }
 
+// precondition: mode is either A or D
+// postcondition: removes values bigger than treshold if mode is A, lower than treshold if mode is D
 void prune(int treshold, LinkedList &list, char mode)
 {
     bool didDeleteAny = false;
@@ -132,117 +118,11 @@ void prune(int treshold, LinkedList &list, char mode)
     cout << (didDeleteAny ? "" : "None");
 }
 
+// postcondition: prints the list to console separated by spaces
 void print(LinkedList &list)
 {
     for (int i = 0; i < list.length; i++)
     {
         cout << list.at(i) << (i == list.length - 1 ? "" : " ");
     }
-}
-
-LinkedList::LinkedList() : head(NULL), length(0)
-{
-}
-
-void LinkedList::push_back(int _value)
-{
-    insert(length, _value);
-}
-
-void LinkedList::insert(int _indice, int _value)
-{
-    if (_indice == 0) 
-    {
-        head = new node(_value, head);
-        length++;
-    }
-    else if (_indice >= 0 && _indice <= length)
-    {
-        node *ptr = getNode(_indice - 1);
-        ptr->next = new node(_value, ptr->next);
-        length++;
-    }
-}
-
-int LinkedList::at(int _indice) const
-{
-    node* ptr = getNode(_indice);
-    return ptr != NULL ? ptr->value : string::npos;
-}
-
-node* LinkedList::getNode(int _indice) const
-{
-    node* ptr = head;
-
-    if (ptr != NULL && _indice >= 0 && _indice < length)
-    {
-        int counter = 0;
-        int value;
-
-        while (ptr != NULL & counter <= _indice)
-        {
-            if (counter == _indice)
-            {
-                return ptr;
-            }
-            
-            ptr = ptr->next;
-            counter++;
-        }
-    }
-
-    return NULL;
-}
-
-void LinkedList::remove(int _indice)
-{
-    if (_indice >= 0 && _indice < length)
-    {
-        node *ptr, *cursor;
-
-        if (_indice == 0)
-        {
-            ptr = head;
-            head = head->next;
-            delete ptr;
-        }
-        else
-        {
-            cursor = getNode(_indice - 1);
-            ptr = cursor->next;
-            cursor->next = cursor->next != NULL ? cursor->next->next : NULL;
-            delete ptr;
-        }
-        length--;
-    }
-}
-
-bool LinkedList::contains(int _value) const
-{
-    bool doesExist = false;
-
-    for (node *ptr = head; ptr != NULL && !doesExist; ptr = ptr->next)
-    {
-        doesExist = ptr->value == _value ? true : doesExist;
-    }
-
-    return doesExist;
-}
-
-void LinkedList::destroy()
-{
-    truncate(head);
-    head = NULL;
-    length = 0;
-}
-
-void LinkedList::truncate(node* _node)
-{
-    if (_node == NULL)
-    {
-        return;
-    }
-
-    truncate(_node->next);
-    delete _node;
 }
