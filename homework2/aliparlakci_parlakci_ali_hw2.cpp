@@ -268,15 +268,7 @@ void LinkedList::_truncate(node* _node)
     {
         return;
     }
-    else
-    {
-        if (_node->next == NULL)
-        {
-            delete _node;
-        }
-        else
-        {
-            _truncate(_node->next);
-        }
-    }
+    
+    _truncate(_node->next);
+    delete _node;
 }
