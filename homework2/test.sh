@@ -1,12 +1,12 @@
 #!/bin/bash
 
-g++ aliparlakci_Parlakci_Ali_hw2.cpp aliparlakci_Parlakci_Ali_hw2_linkedlist.cpp
+g++ aliparlakci_Parlakci_Ali_hw2.cpp aliparlakci_Parlakci_Ali_hw2_linkedlist.cpp -o aliparlakci_Parlakci_Ali_hw2
 
 if [ $? -eq 0 ]
 then
     for i in {1..7}
     do  
-        cat "./tests/input$i.txt" | ./a.out | diff "./tests/output$i.txt" -
+        cat "./tests/input$i.txt" | ./aliparlakci_Parlakci_Ali_hw2 | diff "./tests/output$i.txt" -
 
         if [ $? -eq 0 ]
         then
