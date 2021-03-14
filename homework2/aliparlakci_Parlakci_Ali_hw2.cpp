@@ -106,7 +106,7 @@ void prune(int treshold, LinkedList &list, char mode)
     for (int i = 0; i < list.length; i++)
     {
         int value = list.at(i);
-        if ( (mode == 'A' && value > treshold) || (mode == 'D' && value < treshold))
+        if ( (mode == 'A' && value > treshold) || (mode == 'D' && value < treshold) )
         {
             cout << value << (i == list.length - 1 ? "" : " ");
             list.remove(i);
