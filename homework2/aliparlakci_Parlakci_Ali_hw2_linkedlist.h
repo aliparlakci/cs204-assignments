@@ -31,6 +31,7 @@ public:
     int at(int indice) const;
     void remove(int indice);
     bool contains(int value) const;
+    void reverse();
     void destroy();
 private:
     node* head;

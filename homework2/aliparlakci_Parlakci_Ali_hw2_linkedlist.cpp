@@ -107,6 +107,29 @@ bool LinkedList::contains(int value) const
     return doesExist;
 }
 
+// postcondition: list is reversed
+// Although this is not needed in the homework,
+// I wanted to see if I can reverse the list by myself
+// I will not delete it in case I need it in another homework.
+void LinkedList::reverse()
+{
+    node *prev = nullptr, *next = nullptr, *ptr = head;
+
+    while (ptr != nullptr)
+    {
+        next = ptr->next;
+        ptr->next = prev;
+        prev = ptr;
+
+        if (next == nullptr)
+        {
+            head = ptr;
+        }
+
+        ptr = next;
+    }
+}
+
 // postcondition: deallocates all the elements in the list, head is NULL and length is 0
 void LinkedList::destroy()
 {
