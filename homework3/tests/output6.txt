@@ -1,0 +1,4 @@
+Please enter the numbers in a line: 
+
+FINAL CONTENT
+List is empty!

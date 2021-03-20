@@ -1,0 +1,15 @@
+Please enter the numbers in a line: 
+There is no subsequence that contains 5 to be deleted
+Subsequence(s) containing 5 has/have been added
+Subsequence(s) containing 11 has/have been added
+Subsequence(s) containing 19 has/have been added
+Subsequence(s) containing 17 has/have been added
+All subsequence(s) containing 11 has/have been deleted
+All subsequence(s) containing 5 has/have been deleted
+Subsequence(s) containing 7 has/have been added
+All subsequence(s) containing 19 has/have been deleted
+All subsequence(s) containing 7 has/have been deleted
+All subsequence(s) containing 17 has/have been deleted
+
+FINAL CONTENT
+List is empty!

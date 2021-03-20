@@ -1,0 +1,15 @@
+Please enter the numbers in a line: 
+Subsequence(s) containing 21 has/have been added
+Subsequence(s) containing 12 has/have been added
+Subsequence(s) containing 9 has/have been added
+All subsequence(s) containing 12 has/have been deleted
+9 is already in the list!
+Subsequence(s) containing 12 has/have been added
+9 is already in the list!
+12 is already in the list!
+
+FINAL CONTENT
+1 | 9
+1 | 12
+1 | 21
+2 | 9 --> 12

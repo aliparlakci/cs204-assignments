@@ -1,0 +1,16 @@
+Please enter the numbers in a line: 
+Subsequence(s) containing 5 has/have been added
+All subsequence(s) containing 5 has/have been deleted
+There is no subsequence that contains 5 to be deleted
+There is no subsequence that contains 11 to be deleted
+Subsequence(s) containing 11 has/have been added
+Subsequence(s) containing 5 has/have been added
+Subsequence(s) containing 19 has/have been added
+All subsequence(s) containing 11 has/have been deleted
+Subsequence(s) containing 1 has/have been added
+
+FINAL CONTENT
+1 | 1
+1 | 5
+1 | 19
+2 | 5 --> 19

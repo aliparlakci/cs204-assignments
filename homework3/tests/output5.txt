@@ -1,0 +1,17 @@
+Please enter the numbers in a line: 
+Subsequence(s) containing 11 has/have been added
+Subsequence(s) containing 18 has/have been added
+Subsequence(s) containing 19 has/have been added
+All subsequence(s) containing 11 has/have been deleted
+All subsequence(s) containing 18 has/have been deleted
+All subsequence(s) containing 19 has/have been deleted
+Subsequence(s) containing 1 has/have been added
+Subsequence(s) containing 2 has/have been added
+Subsequence(s) containing 3 has/have been added
+All subsequence(s) containing 3 has/have been deleted
+All subsequence(s) containing 2 has/have been deleted
+All subsequence(s) containing 1 has/have been deleted
+Subsequence(s) containing 0 has/have been added
+
+FINAL CONTENT
+1 | 0

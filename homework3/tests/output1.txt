@@ -1,0 +1,22 @@
+Please enter the numbers in a line: 
+Subsequence(s) containing 5 has/have been added
+Subsequence(s) containing 12 has/have been added
+Subsequence(s) containing 18 has/have been added
+Subsequence(s) containing 99 has/have been added
+
+FINAL CONTENT
+1 | 5
+1 | 12
+1 | 18
+1 | 99
+2 | 5 --> 12
+2 | 5 --> 18
+2 | 5 --> 99
+2 | 12 --> 18
+2 | 12 --> 99
+2 | 18 --> 99
+3 | 5 --> 12 --> 18
+3 | 5 --> 12 --> 99
+3 | 5 --> 18 --> 99
+3 | 12 --> 18 --> 99
+4 | 5 --> 12 --> 18 --> 99
