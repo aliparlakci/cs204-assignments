@@ -16,12 +16,6 @@ void SubSeqsList::add(int entry)
         {
             if (isAllSmaller(entry, hPtr->sHead))
             {
-                // SubSeqHeadNode *newSeq = new SubSeqHeadNode();
-                // newSeq->size = hPtr->size;
-                // newSeq->sHead = duplicate(hPtr->sHead);
-                // appendToSeq(newSeq->sHead, entry);
-                // newSeq->size++;
-                // addNewSeq(newSeq);
                 SubSeqHeadNode *newSeq = addNewSeq();
                 newSeq->size = hPtr->size;
                 newSeq->sHead = duplicate(hPtr->sHead);
@@ -83,41 +77,6 @@ void SubSeqsList::destroy()
 
 // postcondition: appends a new sequence head to the end of the heads list
 // and returns the pointer to it
-void SubSeqsList::addNewSeq(SubSeqHeadNode *node)
-{
-    bool isAdded = false;
-    SubSeqHeadNode *hPtr = hHead;
-
-    if (hPtr->next != nullptr)
-    {
-        while(hPtr != nullptr && !isAdded)
-        {
-            if (hPtr->next == nullptr)
-            {
-                hPtr->next = node;
-                isAdded = true;
-            }
-            else
-            {
-                if (smallerThan(node->sHead, hPtr->next->sHead))
-                {
-                    SubSeqHeadNode *temp = hPtr->next;
-                    hPtr->next = node;
-                    node->next = temp;
-                    isAdded = true;
-                }
-            }
-
-            hPtr = hPtr->next;
-        }
-    }
-    else
-    {
-        hPtr->next = node;
-    }
-    length++;
-}
-
 SubSeqHeadNode* SubSeqsList::addNewSeq()
 {
     bool isAdded = false;
@@ -183,7 +142,7 @@ bool SubSeqsList::isAllSmaller(int value, SubSeqNode *head) const
     bool flag = true;
     for (SubSeqNode *ptr = head; ptr != nullptr && !flag; ptr=ptr->next)
     {
-        flag = value > ptr->value ? false : flag;
+        flag = ptr->value < value;
     }
 
     return flag;
