@@ -1,12 +1,12 @@
 #!/bin/bash
 
-g++ aliparlakci_Parlakci_Ali_hw3.cpp aliparlakci_Parlakci_Ali_hw3_subseqslist.cpp -o aliparlakci_Parlakci_Ali_hw3
+./build.sh
 
 if [ $? -eq 0 ]
 then
     for i in {1..6}
     do  
-        cat "./tests/input$i.txt" | ./aliparlakci_Parlakci_Ali_hw3 | diff -Z "./tests/output$i.txt" -
+        cat "./tests/input$i.txt" | ./aliparlakci_Parlakci_Ali_hw3 | diff -Z --strip-trailing-cr "./tests/output$i.txt" -
 
         if [ $? -eq 0 ]
         then

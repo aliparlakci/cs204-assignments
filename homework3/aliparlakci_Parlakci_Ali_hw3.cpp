@@ -20,14 +20,14 @@ int main()
     int num;
     while(numStream >> num)
     {
-        list.add(num);
+        if (num >= 0) list.add(num);
+        else if (num < 0) list.remove(-num);
     }
     cout << endl;
 
     cout << "FINAL CONTENT" << endl;
     list.print();
-    cout << endl;
-    list.printUnordered();
+    // cout << endl;
     list.destroy();
 
     return 0;

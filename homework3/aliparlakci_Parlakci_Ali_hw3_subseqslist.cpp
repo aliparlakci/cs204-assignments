@@ -23,10 +23,11 @@ void SubSeqsList::add(int entry)
                 newSeq->size++;
                 nPtr->next = newSeq;
                 nPtr = nPtr->next;
+                length++;
             }
         }
 
-        hHead = mergeLists(hHead, newHeadsList->next);
+        hHead = mergeTwoHeadsLists(hHead, newHeadsList->next);
 
         std::cout << "Subsequence(s) containing "
                     << entry 
@@ -41,33 +42,54 @@ void SubSeqsList::add(int entry)
 void SubSeqsList::remove(int entry)
 {
 
+    if (exists(entry))
+    {
+        SubSeqHeadNode *head = new SubSeqHeadNode();
+        SubSeqHeadNode *temp = nullptr;
+        head->next = hHead;
+
+        for (SubSeqHeadNode *hPtr = head; hPtr->next != nullptr;)
+        {
+            if (existsInSeq(entry, hPtr->next->sHead))
+            {
+                temp = hPtr->next;
+                hPtr->next = hPtr->next->next;
+                delete temp;
+                temp = nullptr;
+                length--;
+            }
+            else
+            {
+                hPtr = hPtr->next;
+            }
+        }
+
+        std::cout << "All subsequence(s) containing "
+            << entry 
+            << " has/have been deleted" << std::endl;
+    }
+    else
+    {
+        std::cout << "There is no subsequence that contains "
+            << entry 
+            << " to be deleted" << std::endl;
+    }
 }
 
 void SubSeqsList::print() const
 {
-    int size = 1;
-    for (int i = 0; i < length - 1;)
+    if (length > 1)
     {
-        for (SubSeqHeadNode *ptr = hHead; ptr != nullptr; ptr=ptr->next)
+        for (SubSeqHeadNode *ptr = hHead->next; ptr != nullptr; ptr=ptr->next)
         {
-            if (ptr->size == size)
-            {
-                std::cout << size << " | ";
-                printSeq(ptr->sHead);
-                std::cout << std::endl;
-                i++;
-            }
+            std::cout << ptr->size << " | ";
+            printSeq(ptr->sHead);
+            std::cout << std::endl;
         }
-        size++;
     }
-}
-
-void SubSeqsList::printUnordered() const
-{
-    for (SubSeqHeadNode *ptr = hHead; ptr != nullptr; ptr=ptr->next)
+    else
     {
-        printSeq(ptr->sHead);
-        std::cout << std::endl;
+        std::cout << "List is empty!" << std::endl;
     }
 }
 
@@ -75,7 +97,7 @@ void SubSeqsList::destroy()
 {
     truncateSeqList(hHead);
     hHead = new SubSeqHeadNode;
-    length = 0;
+    length = 1;
 }
 
 // postcondition: appends a new sequence head to the end of the heads list
@@ -186,7 +208,9 @@ void SubSeqsList::printSeq(SubSeqNode *head) const
     }
 }
 
-SubSeqHeadNode* SubSeqsList::mergeLists(SubSeqHeadNode *first, SubSeqHeadNode *second) const
+// precondition: first and second are two sorted linked lists with different or same lengths
+// postcondition: returns a pointer to the first element of the sorted merged linked list
+SubSeqHeadNode* SubSeqsList::mergeTwoHeadsLists(SubSeqHeadNode *first, SubSeqHeadNode *second) const
 {
     SubSeqHeadNode *head = new SubSeqHeadNode();
     SubSeqHeadNode *ptr = head;
@@ -229,7 +253,7 @@ SubSeqHeadNode* SubSeqsList::mergeLists(SubSeqHeadNode *first, SubSeqHeadNode *s
     return head->next;
 }
 
-// precondition: first and second two sorted linked lists with same length
+// precondition: first and second are two sorted linked lists with same length
 // postcondition: returns true if first is strictly smaller
 bool SubSeqsList::smallerThan(SubSeqNode *first, SubSeqNode *second) const
 {
