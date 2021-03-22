@@ -1,32 +1,44 @@
+/*
+ * CS204 Spring 2020 - Albert Levi
+ * Homework 3
+ * 22 March 2021
+ * Written by Ali PARLAKCI
+ * 28114, aliparlakci@sabanciuniv.edu
+ */
+
 #include <iostream>
 #include "aliparlakci_Parlakci_Ali_hw3_subseqslist.h"
 
 SubSeqsList::SubSeqsList() : hHead(new SubSeqHeadNode), length(1)
 {}
 
+// postcondition: sequences are created with the given integer
 void SubSeqsList::add(int entry)
 {
     if(!exists(entry))
     {   
-        // Iteratate over length instead of pointers
-        // to skip the newly added nodes
+        // We will keep newly created sequences in newHeadsList
         SubSeqHeadNode *newHeadsList = new SubSeqHeadNode();
         SubSeqHeadNode *nPtr = newHeadsList;
         SubSeqHeadNode *hPtr = hHead;
 
+        // For every sequence (node) in main HeadsList
         for (SubSeqHeadNode *hPtr = hHead; hPtr != nullptr; hPtr = hPtr->next)
         {
+            // If it is suitable to create a new sequence out of this
             if (isAllSmaller(entry, hPtr->sHead))
             {
+                // duplicate the sequence from main list
                 SubSeqHeadNode *newSeq = new SubSeqHeadNode(duplicate(hPtr->sHead), hPtr->size);
-                appendToSeq(newSeq->sHead, entry);
+                appendToSeq(newSeq->sHead, entry);  // extend it with given entry
                 newSeq->size++;
-                nPtr->next = newSeq;
+                nPtr->next = newSeq;    // add the newSeq to newHeadsList
                 nPtr = nPtr->next;
                 length++;
             }
         }
 
+        // merge the new nodes to main list
         hHead = mergeTwoHeadsLists(hHead, newHeadsList->next);
 
         std::cout << "Subsequence(s) containing "
@@ -39,27 +51,33 @@ void SubSeqsList::add(int entry)
     }
 }
 
+// postcondition: sequences containing the given integer are deleted 
 void SubSeqsList::remove(int entry)
 {
-
     if (exists(entry))
     {
+        // Create a dummy node so we are able to delete the first node if necessary
         SubSeqHeadNode *head = new SubSeqHeadNode();
         SubSeqHeadNode *temp = nullptr;
         head->next = hHead;
-
+        
         for (SubSeqHeadNode *hPtr = head; hPtr->next != nullptr;)
         {
             if (existsInSeq(entry, hPtr->next->sHead))
             {
                 temp = hPtr->next;
+                
+                // Iterate by 2, in other words delete the i+1'st node
                 hPtr->next = hPtr->next->next;
+
                 delete temp;
                 temp = nullptr;
+                
                 length--;
             }
             else
             {
+                // Iterate by 1
                 hPtr = hPtr->next;
             }
         }
@@ -76,6 +94,7 @@ void SubSeqsList::remove(int entry)
     }
 }
 
+// postcondition: all sequences are printed to console
 void SubSeqsList::print() const
 {
     if (length > 1)
@@ -100,24 +119,8 @@ void SubSeqsList::destroy()
     length = 1;
 }
 
-// postcondition: appends a new sequence head to the end of the heads list
-// and returns the pointer to it
-SubSeqHeadNode* SubSeqsList::addNewSeq()
-{
-    bool isAdded = false;
-    SubSeqHeadNode *hPtr = hHead;
-
-    while(hPtr->next != nullptr)
-    {
-        hPtr = hPtr->next;
-    }
-    hPtr->next = new SubSeqHeadNode();
-    length++;
-    return hPtr->next;
-}
-
 // postcondition: appends a new node with the given value to the given list
-void SubSeqsList::appendToSeq(SubSeqNode *&head, int value)
+void SubSeqsList::appendToSeq(SubSeqNode *&head, int value) const
 {
     bool isFinished = false;
     if (head == nullptr)
@@ -128,10 +131,10 @@ void SubSeqsList::appendToSeq(SubSeqNode *&head, int value)
     {
         for (SubSeqNode *ptr = head; ptr != nullptr && !isFinished; ptr = ptr->next)
         {
-            if (ptr->next == nullptr)
+            if (ptr->next == nullptr)   // reach the end
             {
                 ptr->next = new SubSeqNode(value);
-                isFinished = true;
+                isFinished = true;  // break the loop
             }
         }
     }
@@ -218,6 +221,9 @@ SubSeqHeadNode* SubSeqsList::mergeTwoHeadsLists(SubSeqHeadNode *first, SubSeqHea
 
     while(first != nullptr || second != nullptr)
     {
+        // If we reached the end of the one of them
+        // we can take other all together
+
         if (first == nullptr)
         {
             ptr->next = second;
@@ -258,6 +264,7 @@ SubSeqHeadNode* SubSeqsList::mergeTwoHeadsLists(SubSeqHeadNode *first, SubSeqHea
 bool SubSeqsList::smallerThan(SubSeqNode *first, SubSeqNode *second) const
 {
 
+    // If they are not equal size, return false
     if (first == nullptr || second == nullptr)
     {
         return false;
@@ -273,11 +280,12 @@ bool SubSeqsList::smallerThan(SubSeqNode *first, SubSeqNode *second) const
     }
     else
     {
+        // recursion
         return smallerThan(first->next, second->next);
     }
 }
 
-void SubSeqsList::truncateSeq(SubSeqNode* ptr)
+void SubSeqsList::truncateSeq(SubSeqNode* ptr) const
 {
     if (ptr == nullptr)
     {
@@ -288,7 +296,7 @@ void SubSeqsList::truncateSeq(SubSeqNode* ptr)
     delete ptr;
 }
 
-void SubSeqsList::truncateSeqList(SubSeqHeadNode* ptr)
+void SubSeqsList::truncateSeqList(SubSeqHeadNode* ptr) const
 {
     if (ptr == nullptr)
     {

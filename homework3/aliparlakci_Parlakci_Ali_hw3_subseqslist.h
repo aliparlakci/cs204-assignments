@@ -1,5 +1,13 @@
-#ifndef _SUB_SEQS_LIST
-#define _SUB_SEQS_LIST
+/*
+ * CS204 Spring 2020 - Albert Levi
+ * Homework 3
+ * 22 March 2021
+ * Written by Ali PARLAKCI
+ * 28114, aliparlakci@sabanciuniv.edu
+ */
+
+#ifndef _SUB_SEQS_LIST_H
+#define _SUB_SEQS_LIST_H
 
 struct SubSeqNode
 {
@@ -36,9 +44,7 @@ public:
 private:
     SubSeqHeadNode *hHead;
     int length;
-    void addNewSeq(SubSeqHeadNode *head);
-    SubSeqHeadNode* addNewSeq();
-    void appendToSeq(SubSeqNode *&head, int value);
+    void appendToSeq(SubSeqNode *&head, int value) const;
     bool exists(int value) const;
     bool existsInSeq(int value, SubSeqNode *head) const;
     bool isAllSmaller(int value, SubSeqNode *head) const;
@@ -46,8 +52,8 @@ private:
     void printSeq(SubSeqNode *head) const;
     SubSeqHeadNode* mergeTwoHeadsLists(SubSeqHeadNode *first, SubSeqHeadNode *second) const;
     bool smallerThan(SubSeqNode *first, SubSeqNode *second) const;
-    void truncateSeq(SubSeqNode *ptr);
-    void truncateSeqList(SubSeqHeadNode *ptr);
+    void truncateSeq(SubSeqNode *ptr) const;
+    void truncateSeqList(SubSeqHeadNode *ptr) const;
 };  
 
 #endif

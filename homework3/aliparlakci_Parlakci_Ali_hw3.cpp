@@ -1,3 +1,11 @@
+/*
+ * CS204 Spring 2020 - Albert Levi
+ * Homework 3
+ * 22 March 2021
+ * Written by Ali PARLAKCI
+ * 28114, aliparlakci@sabanciuniv.edu
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>
