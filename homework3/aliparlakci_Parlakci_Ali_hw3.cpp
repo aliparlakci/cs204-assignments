@@ -16,27 +16,29 @@ using namespace std;
 
 int main()
 {
-    string line;
+	string line;
 
-    cout << "Please enter the numbers in a line: ";
-    getline(cin, line);
-    istringstream numStream(line);
-    cout << endl;
+	cout << "Please enter the numbers in a line: ";
+	getline(cin, line);
+	istringstream numStream(line);
+	cout << endl;
 
-    SubSeqsList list;
+	SubSeqsList list;
 
-    int num;
-    while(numStream >> num)
-    {
-        if (num >= 0) list.add(num);
-        else if (num < 0) list.remove(-num);
-    }
-    cout << endl;
+	int num;
+	while (numStream >> num)
+	{
+		if (num >= 0)
+			list.add(num);
+		else if (num < 0)
+			list.remove(-num);
+	}
+	cout << endl;
 
-    cout << "FINAL CONTENT" << endl;
-    list.print();
-    // cout << endl;
-    list.destroy();
+	cout << "FINAL CONTENT" << endl;
+	list.print();
+	// cout << endl;
+	list.destroy();
 
-    return 0;
+	return 0;
 }
