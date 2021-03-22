@@ -20,6 +20,8 @@ struct SubSeqHeadNode
     SubSeqHeadNode * next;
     SubSeqHeadNode() : size(0), sHead(nullptr), next(nullptr)
     {}; 
+    SubSeqHeadNode(SubSeqNode *sHead, int size) : size(size), sHead(sHead), next(nullptr)
+    {}; 
 };
 
 
@@ -43,6 +45,7 @@ private:
     bool isAllSmaller(int value, SubSeqNode *head) const;
     SubSeqNode* duplicate(SubSeqNode *original) const;
     void printSeq(SubSeqNode *head) const;
+    SubSeqHeadNode* mergeLists(SubSeqHeadNode *first, SubSeqHeadNode *second) const;
     bool smallerThan(SubSeqNode *first, SubSeqNode *second) const;
     void truncateSeq(SubSeqNode *ptr);
     void truncateSeqList(SubSeqHeadNode *ptr);

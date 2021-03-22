@@ -10,20 +10,23 @@ void SubSeqsList::add(int entry)
     {   
         // Iteratate over length instead of pointers
         // to skip the newly added nodes
+        SubSeqHeadNode *newHeadsList = new SubSeqHeadNode();
+        SubSeqHeadNode *nPtr = newHeadsList;
         SubSeqHeadNode *hPtr = hHead;
-        int currLength = length;
-        for (int i = 0; i < currLength; i++)
+
+        for (SubSeqHeadNode *hPtr = hHead; hPtr != nullptr; hPtr = hPtr->next)
         {
             if (isAllSmaller(entry, hPtr->sHead))
             {
-                SubSeqHeadNode *newSeq = addNewSeq();
-                newSeq->size = hPtr->size;
-                newSeq->sHead = duplicate(hPtr->sHead);
+                SubSeqHeadNode *newSeq = new SubSeqHeadNode(duplicate(hPtr->sHead), hPtr->size);
                 appendToSeq(newSeq->sHead, entry);
                 newSeq->size++;
+                nPtr->next = newSeq;
+                nPtr = nPtr->next;
             }
-            hPtr = hPtr->next;
         }
+
+        hHead = mergeLists(hHead, newHeadsList->next);
 
         std::cout << "Subsequence(s) containing "
                     << entry 
@@ -140,7 +143,7 @@ bool SubSeqsList::existsInSeq(int value, SubSeqNode *head) const
 bool SubSeqsList::isAllSmaller(int value, SubSeqNode *head) const
 {
     bool flag = true;
-    for (SubSeqNode *ptr = head; ptr != nullptr && !flag; ptr=ptr->next)
+    for (SubSeqNode *ptr = head; ptr != nullptr && flag; ptr=ptr->next)
     {
         flag = ptr->value < value;
     }
@@ -183,17 +186,57 @@ void SubSeqsList::printSeq(SubSeqNode *head) const
     }
 }
 
+SubSeqHeadNode* SubSeqsList::mergeLists(SubSeqHeadNode *first, SubSeqHeadNode *second) const
+{
+    SubSeqHeadNode *head = new SubSeqHeadNode();
+    SubSeqHeadNode *ptr = head;
+    SubSeqHeadNode *temp;
+
+    while(first != nullptr || second != nullptr)
+    {
+        if (first == nullptr)
+        {
+            ptr->next = second;
+            second = nullptr;
+        }
+        else if (second == nullptr)
+        {
+            ptr->next = first;
+            first = nullptr;
+        }
+        else
+        {
+            if (first->size < second->size)
+            {
+                ptr->next = first;
+                first = first->next;
+            }
+            else if (first->size == second->size && smallerThan(first->sHead, second->sHead))
+            {
+                ptr->next = first;
+                first = first->next;
+            }
+            else
+            {
+                ptr->next = second;
+                second = second->next;
+            }
+        }
+
+        ptr = ptr->next;
+    }
+
+    return head->next;
+}
+
+// precondition: first and second two sorted linked lists with same length
+// postcondition: returns true if first is strictly smaller
 bool SubSeqsList::smallerThan(SubSeqNode *first, SubSeqNode *second) const
 {
 
-    if (second == nullptr)
+    if (first == nullptr || second == nullptr)
     {
         return false;
-    }
-
-    if (first == nullptr)
-    {
-        return true;
     }
 
     if (first->value < second->value)
