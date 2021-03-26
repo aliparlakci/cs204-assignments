@@ -71,6 +71,7 @@ void SubSeqsList::remove(int entry)
 				// Iterate by 2, in other words delete the i+1'st node
 				hPtr->next = hPtr->next->next;
 
+				truncateSeq(temp->sHead);
 				delete temp;
 				temp = nullptr;
 
