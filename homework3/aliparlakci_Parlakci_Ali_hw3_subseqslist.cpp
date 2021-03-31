@@ -84,6 +84,8 @@ void SubSeqsList::remove(int entry)
 			}
 		}
 
+		delete head;
+
 		std::cout << "All subsequence(s) containing "
 				  << entry
 				  << " has/have been deleted" << std::endl;
@@ -258,7 +260,9 @@ SubSeqHeadNode *SubSeqsList::mergeTwoHeadsLists(SubSeqHeadNode *first, SubSeqHea
 		ptr = ptr->next;
 	}
 
-	return head->next;
+	temp = head->next;
+	delete head;
+	return temp;
 }
 
 // precondition: first and second are two sorted linked lists with same length
