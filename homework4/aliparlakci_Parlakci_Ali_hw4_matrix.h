@@ -3,15 +3,26 @@
 
 #include <string>
 
+struct cell
+{
+    char value;
+    bool flag;
+    cell() : value('-'), flag(false){};
+    cell(char v, bool f=false) : value(v), flag(f){}; 
+};
+
 class Matrix
 {
 public:
-    void Matrix();
-    void Matrix(int row, int col);
-    void search(const string &bitString) const;
-    void set(int value, int row, int col);
-    void get(int row, int col);
+    Matrix();
+    Matrix(int row, int col);
+    void search(const std::string &bitString) const;
+    void set(char value, int row, int col);
+    char get(int row, int col);
 private:
+    cell** matrix;
+    int rows;
+    int cols;
 };
 
 #endif
