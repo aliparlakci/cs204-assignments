@@ -14,6 +14,7 @@ Stack::Stack(const Stack &copy)
         tempHeadPtr->next = new node(ptr->x, ptr->y, ptr->next);
         tempHeadPtr = tempHeadPtr->next;
     }
+    delete tempHead;
     head = tempHead->next;
 }
 
