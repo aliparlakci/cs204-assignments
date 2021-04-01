@@ -1,0 +1,1 @@
+3 3 tests/matrix2.txt 100 010 000 011 01 00010110001 0 2x3 random

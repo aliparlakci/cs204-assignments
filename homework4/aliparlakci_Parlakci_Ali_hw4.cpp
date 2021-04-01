@@ -20,6 +20,7 @@ void openFile(ifstream &file);
 void importMatrixFromFile(Matrix &matrix, ifstream &file);
 void search(const string &query, Matrix &matrix);
 void printStackReversed(Stack &stack);
+void resetFlags(Matrix &matrix);
 
 int main()
 {
@@ -41,10 +42,14 @@ int main()
 	while(cin >> query)
 	{
 		search(query, matrix);
+		cin.clear();
+		cin.ignore();
 
 		cout << "---------------------------------------------------------" << endl;
 		cout << "Please enter a string of bits to search (CTRL+Z to quit): ";
 	}
+
+	cout << "Program ended succesfully!" << endl;
 
 	return 0;
 }
@@ -54,6 +59,8 @@ void openFile(ifstream &file)
 	string filePath;
 
 	cout << "Please enter the name of the file: ";
+	cin.clear();
+	cin.ignore();
 	cin >> filePath;
 	file.open(filePath.c_str());
 
@@ -62,7 +69,11 @@ void openFile(ifstream &file)
 		cout << "File cannot be opened." << endl;
 		file.clear();
 		cout << "Please enter the name of the file again: ";
+
+		cin.clear();
+    	cin.ignore();
 		cin >> filePath;
+
 		file.open(filePath.c_str());
 	}
 
@@ -92,7 +103,7 @@ void search(const string &query, Matrix &matrix)
 	matrix.size(rows, cols);
 
 	int x = 0, y = 0, bit = 0;
-	while(!isFound || matrix.getFlag(0, 0) == true)
+	while(!isFound && matrix.getFlag(0, 0) == false)
 	{
 		if (matrix.getFlag(x,y) == false && query[bit] == matrix.getVal(x,y))
 		{
@@ -115,14 +126,20 @@ void search(const string &query, Matrix &matrix)
 			else
 			{
 				matrix.setFlag(x, y, true);
-				stack.pop(x, y);
+				if (!stack.isEmpty())
+				{
+					stack.pop(x, y);
+				}
 			}
 		}
 		else
 		{
 			matrix.setFlag(x, y, true);
-			stack.pop(x, y);
-			bit--;
+			if (!stack.isEmpty())
+			{
+				stack.pop(x, y);
+				bit--;
+			}
 		}
 	}
 
@@ -137,6 +154,8 @@ void search(const string &query, Matrix &matrix)
 		printStackReversed(stack);
 		cout << endl;
 	}
+
+	resetFlags(matrix);
 }
 
 void printStackReversed(Stack &stack)
@@ -147,5 +166,19 @@ void printStackReversed(Stack &stack)
 		stack.pop(x, y);
 		printStackReversed(stack);
 		cout << "(" << x << "," << y << ") ";
+	}
+}
+
+void resetFlags(Matrix &matrix)
+{
+	int x, y;
+	matrix.size(x, y);
+
+	for (int i = 0; i < x; i++)
+	{
+		for (int j = 0; j < y; j++)
+		{
+			matrix.setFlag(i, j, false);
+		}
 	}
 }

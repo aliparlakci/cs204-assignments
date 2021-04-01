@@ -1,0 +1,23 @@
+Please enter the number of rows: Please enter the number of cols: Please enter the name of the file: 
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 100 could not be found.
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 010 could not be found.
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 000 could not be found.
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 011 is found following these cells:
+(0,0) (0,1) (0,2) 
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 01 is found following these cells:
+(0,0) (0,1) 
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 00010110001 could not be found.
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 0 is found following these cells:
+(0,0) 
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string 2x3 could not be found.
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): The bit string random could not be found.
+---------------------------------------------------------
+Please enter a string of bits to search (CTRL+Z to quit): Program ended succesfully!
