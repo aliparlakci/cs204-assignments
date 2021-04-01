@@ -18,7 +18,8 @@ using namespace std;
 
 void openFile(ifstream &file);
 void importMatrixFromFile(Matrix &matrix, ifstream &file);
-void search(const string &query, const Matrix &matrix);
+void search(const string &query, Matrix &matrix);
+void printStackReversed(Stack &stack);
 
 int main()
 {
@@ -85,5 +86,66 @@ void importMatrixFromFile(Matrix &matrix, ifstream &file)
 
 void search(const string &query, Matrix &matrix)
 {
-	
+	Stack stack;
+	int rows, cols;
+	bool isFound = false;
+	matrix.size(rows, cols);
+
+	int x = 0, y = 0, bit = 0;
+	while(!isFound || matrix.getFlag(0, 0) == true)
+	{
+		if (matrix.getFlag(x,y) == false && query[bit] == matrix.getVal(x,y))
+		{
+			stack.push(x, y);
+
+			if (bit == query.length() - 1)
+			{
+				isFound = true;
+			}
+			else if (y+1 < cols && matrix.getFlag(x, y+1) == false)
+			{
+				y++;
+				bit++;
+			}
+			else if (x+1 < rows && matrix.getFlag(x+1, y) == false)
+			{
+				x++;
+				bit++;
+			}
+			else
+			{
+				matrix.setFlag(x, y, true);
+				stack.pop(x, y);
+			}
+		}
+		else
+		{
+			matrix.setFlag(x, y, true);
+			stack.pop(x, y);
+			bit--;
+		}
+	}
+
+	cout << "The bit string ";
+	if (stack.isEmpty())
+	{
+		cout << query << " could not be found." << endl;
+	}
+	else
+	{
+		cout << query << " is found following these cells:" << endl;
+		printStackReversed(stack);
+		cout << endl;
+	}
+}
+
+void printStackReversed(Stack &stack)
+{
+	if (!stack.isEmpty())
+	{
+		int x, y;
+		stack.pop(x, y);
+		printStackReversed(stack);
+		cout << "(" << x << "," << y << ") ";
+	}
 }

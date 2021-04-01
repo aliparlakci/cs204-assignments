@@ -59,9 +59,33 @@ void Matrix::get(int row, int col, char &value, bool &flag) const
     flag = c->flag;
 }
 
+char Matrix::getVal(int row, int col) const
+{
+    cell* c = *(matrix+row)+col;
+    return c->value;
+}
+
+bool Matrix::getFlag(int row, int col) const
+{
+    cell* c = *(matrix+row)+col;
+    return c->flag;
+}
+
 void Matrix::set(int row, int col, char value, bool flag)
 {
     cell* c = *(matrix+row)+col;
     c->value = value;
     c->flag = flag;
+}
+
+void Matrix::setVal(int row, int col, char value)
+{
+    cell* c = *(matrix+row)+col;
+    c->value = value;
+}
+
+void Matrix::setFlag(int row, int col, bool flag)
+{
+    cell* c = *(matrix+row)+col;
+    c->flag = flag;    
 }
