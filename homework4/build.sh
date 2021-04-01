@@ -1,1 +1,1 @@
-g++ aliparlakci_Parlakci_Ali_hw4.cpp -o aliparlakci_Parlakci_Ali_hw4
+g++ *.cpp -o aliparlakci_Parlakci_Ali_hw4
