@@ -15,12 +15,16 @@ Matrix::Matrix(int r, int c) : rows(r), cols(c)
     }
 }
 
-char Matrix::get(int row, int col)
+void Matrix::get(int row, int col, char &value, bool &flag) const
 {
-    return matrix[row][col].value;
+    cell* c = *(matrix+row)+col;
+    value = c->value;
+    flag = c->flag;
 }
 
-void Matrix::set(char value, int row, int col)
+void Matrix::set(int row, int col, char value, bool flag=false)
 {
-    matrix[row][col].value = value;
+    cell* c = *(matrix+row)+col;
+    c->value = value;
+    c->flag = flag;
 }

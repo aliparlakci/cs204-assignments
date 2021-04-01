@@ -17,8 +17,8 @@ public:
     Matrix();
     Matrix(int row, int col);
     void search(const std::string &bitString) const;
-    void set(char value, int row, int col);
-    char get(int row, int col);
+    void set(int row, int col, char value, bool flag=false);
+    void get(int row, int col, char &value, bool &flag) const;
 private:
     cell** matrix;
     int rows;
