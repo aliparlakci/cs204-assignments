@@ -39,7 +39,7 @@ int main()
 
 	string query;
 	cout << "Please enter a string of bits to search (CTRL+Z to quit): ";
-	while(cin >> query)
+	while (cin >> query)
 	{
 		search(query, matrix);
 		cin.clear();
@@ -71,7 +71,7 @@ void openFile(ifstream &file)
 		cout << "Please enter the name of the file again: ";
 
 		cin.clear();
-    	cin.ignore();
+		cin.ignore();
 		cin >> filePath;
 
 		file.open(filePath.c_str());
@@ -103,9 +103,9 @@ void search(const string &query, Matrix &matrix)
 	matrix.size(rows, cols);
 
 	int x = 0, y = 0, bit = 0;
-	while(!isFound && matrix.getFlag(0, 0) == false)
+	while (!isFound && matrix.getFlag(0, 0) == false)
 	{
-		if (matrix.getFlag(x,y) == false && query[bit] == matrix.getVal(x,y))
+		if (matrix.getFlag(x, y) == false && query[bit] == matrix.getVal(x, y))
 		{
 			stack.push(x, y);
 
@@ -113,12 +113,12 @@ void search(const string &query, Matrix &matrix)
 			{
 				isFound = true;
 			}
-			else if (y+1 < cols && matrix.getFlag(x, y+1) == false)
+			else if (y + 1 < cols && matrix.getFlag(x, y + 1) == false)
 			{
 				y++;
 				bit++;
 			}
-			else if (x+1 < rows && matrix.getFlag(x+1, y) == false)
+			else if (x + 1 < rows && matrix.getFlag(x + 1, y) == false)
 			{
 				x++;
 				bit++;

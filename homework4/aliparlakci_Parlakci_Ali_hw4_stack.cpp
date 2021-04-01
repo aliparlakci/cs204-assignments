@@ -6,25 +6,25 @@ Stack::Stack() : head(nullptr)
 
 Stack::Stack(const Stack &copy)
 {
-    node* tempHead = new node();
-    node* tempHeadPtr = tempHead;
+    node *tempHead = new node();
+    node *tempHeadPtr = tempHead;
 
-    for (node* ptr = copy.head; ptr != nullptr; ptr = ptr->next)
+    for (node *ptr = copy.head; ptr != nullptr; ptr = ptr->next)
     {
         tempHeadPtr->next = new node(ptr->x, ptr->y, ptr->next);
         tempHeadPtr = tempHeadPtr->next;
     }
-    
+
     head = tempHead->next;
     delete tempHead;
 }
 
 Stack::~Stack()
 {
-    while(!isEmpty())
+    while (!isEmpty())
     {
-        int x,y;
-        pop(x,y);
+        int x, y;
+        pop(x, y);
     }
 }
 
@@ -38,7 +38,7 @@ void Stack::pop(int &x, int &y)
 {
     x = head->x;
     y = head->y;
-    node* temp = head;
+    node *temp = head;
     head = head->next;
     delete temp;
 }
