@@ -4,19 +4,41 @@ Stack::Stack() : head(nullptr)
 {
 }
 
-void Stack::push(int value)
+Stack::Stack(const Stack &copy)
 {
-    // Empty stack condition handled implicitly
-    head = new node(value, head);
+    node* tempHead = new node();
+    node* tempHeadPtr = tempHead;
+
+    for (node* ptr = copy.head; ptr != nullptr; ptr = ptr->next)
+    {
+        tempHeadPtr->next = new node(ptr->x, ptr->y, ptr->next);
+        tempHeadPtr = tempHeadPtr->next;
+    }
+    head = tempHead->next;
 }
 
-int Stack::pop()
+Stack::~Stack()
 {
-    int value = head->value;
+    while(!isEmpty())
+    {
+        int x,y;
+        pop(x,y);
+    }
+}
+
+void Stack::push(int x, int y)
+{
+    // Empty stack condition handled implicitly
+    head = new node(x, y, head);
+}
+
+void Stack::pop(int &x, int &y)
+{
+    x = head->x;
+    y = head->y;
     node* temp = head;
     head = head->next;
     delete temp;
-    return value;
 }
 
 bool Stack::isEmpty() const

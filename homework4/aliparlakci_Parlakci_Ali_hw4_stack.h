@@ -3,18 +3,20 @@
 
 struct node
 {
-    int value;
+    int x,y;
     node* next;
-    node() : value(0), next(nullptr){};
-    node(int val, node* n=nullptr) : value(val), next(n){};
+    node() : x(0), y(0), next(nullptr){};
+    node(int xx, int yy, node* n=nullptr) : x(xx), y(yy), next(n){};
 };
 
 class Stack
 {
 public:
     Stack();
-    void push(int value);
-    int pop();
+    Stack(const Stack &copy);
+    ~Stack();
+    void push(int x, int y);
+    void pop(int &x, int &y);
     bool isEmpty() const;
 private:
     node* head;

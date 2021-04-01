@@ -15,10 +15,12 @@ class Matrix
 {
 public:
     Matrix();
+    Matrix(const Matrix &copy);
     Matrix(int row, int col);
-    void search(const std::string &bitString) const;
-    void set(int row, int col, char value, bool flag=false);
+    ~Matrix();
+    void size(int &row, int &col) const;
     void get(int row, int col, char &value, bool &flag) const;
+    void set(int row, int col, char value, bool flag=false);
 private:
     cell** matrix;
     int rows;
