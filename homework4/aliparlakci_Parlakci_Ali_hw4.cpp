@@ -72,9 +72,18 @@ void importMatrixFromFile(Matrix &matrix, ifstream &file)
 {
 	int rows, cols;
 	matrix.size(rows, cols);
+
+	string line;
+	for (int i = 0; getline(file, line); i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			matrix.set(i, j, line[j]);
+		}
+	}
 }
 
-void search(const string &query, const Matrix &matrix)
+void search(const string &query, Matrix &matrix)
 {
-
+	
 }
