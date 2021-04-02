@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
 
 #include "aliparlakci_Parlakci_Ali_hw4_stack.h"
