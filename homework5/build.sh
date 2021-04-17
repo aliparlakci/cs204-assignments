@@ -1,0 +1,1 @@
+g++ *.cpp -o aliparlakci_Parlakci_Ali_hw4
