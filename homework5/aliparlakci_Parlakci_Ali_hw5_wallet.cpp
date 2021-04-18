@@ -31,12 +31,15 @@ string Wallet::tostring() const
 {
     ostringstream out;
 
-    for (int i = 0; i < lenght - 1; i++)
-    {
-        out << master[i].currency << " " << master[i].amount;
-        out << " - ";
-    }
-    out << master[lenght - 1].currency << " " << master[lenght - 1].amount;
+	if (this->lenght > 0)
+	{
+		for (int i = 0; i < lenght - 1; i++)
+		{
+			out << master[i].currency << " " << master[i].amount;
+			out << " - ";
+		}
+		out << master[lenght - 1].currency << " " << master[lenght - 1].amount;
+	}
     
     return out.str();
 }
@@ -83,60 +86,51 @@ Wallet Wallet::operator+(const Money& rhs) const
 
 }
 
-Wallet Wallet::operator-(const Money& rhs) const // Broken
+Wallet Wallet::operator-(const Money& rhs) const
 {
-    Wallet result = Wallet(*this);
+	int new_len = this->lenght;
+	for (int i = 0; i < this->lenght; i++)
+	{
+		if (rhs.currency == this->master[i].currency)
+		{
+			if (rhs.amount == this->master[i].amount)
+			{
+				new_len--;
+			}
+		}
+	}
 
-    Money new_money;
-    bool isExact = false;
+	Wallet result = Wallet();
+	result.master = new Money[new_len];
+	result.lenght = new_len;
 
-    int number_of_items = 0;
-    for (int i = 0; i < this->lenght; i++)
-    {
-        number_of_items++;
-        Money &money_in_wallet = result.master[i];
+	int i = 0, j = 0;
+	while (i < new_len)
+	{
+		if (rhs.currency == this->master[i].currency)
+		{
+			if (rhs.amount < this->master[i].amount)
+			{
+				result.master[i] = this->master[j++];
+				result.master[i].amount -= rhs.amount;
+				j++;
+			}
+			else if (rhs.amount == this->master[i].amount)
+			{
+				j++;
+			}
+			else
+			{
+				result.master[i++] = this->master[j++];
+			}
+		}
+		else
+		{
+			result.master[i++] = this->master[j++];
+		}
+	}
 
-        if (result.master[i].currency == rhs.currency)
-        {
-            if(money_in_wallet.amount > rhs.amount)
-            {
-                money_in_wallet.amount -= rhs.amount;
-            }
-            else if (money_in_wallet.amount == rhs.amount)
-            {
-                isExact = true;
-                number_of_items--; // We remove the money from wallet
-            }
-            new_money = money_in_wallet;
-        }
-    }
-
-    result.master = new Money[number_of_items];
-    result.lenght = number_of_items;
-
-    int original_index = 0;
-    for (int i = 0; i < number_of_items; i++)
-    {
-        if (new_money.currency == this->master[original_index].currency)
-        {
-            if (isExact)
-            {
-                original_index++;
-            }
-            else
-            {
-                result.master[i] = new_money;
-            }
-        }
-        else
-        {
-            result.master[i] = this->master[original_index];
-        }
-
-        original_index++;
-    }
-
-    return result;
+	return result;
 }
 
 const Wallet& Wallet::operator=(const Wallet& rhs)
