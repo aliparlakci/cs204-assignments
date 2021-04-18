@@ -104,18 +104,20 @@ Wallet Wallet::operator-(const Money& rhs) const
 	result.master = new Money[new_len];
 	result.lenght = new_len;
 
-	int i = 0, j = 0;
+	int i = 0;
+	int j = 0;
 	while (i < new_len)
 	{
-		if (rhs.currency == this->master[i].currency)
+		if (rhs.currency == this->master[j].currency)
 		{
-			if (rhs.amount < this->master[i].amount)
+			if (rhs.amount < this->master[j].amount)
 			{
-				result.master[i] = this->master[j++];
+				result.master[i] = this->master[j];
 				result.master[i].amount -= rhs.amount;
+				i++;
 				j++;
 			}
-			else if (rhs.amount == this->master[i].amount)
+			else if (rhs.amount == this->master[j].amount)
 			{
 				j++;
 			}
