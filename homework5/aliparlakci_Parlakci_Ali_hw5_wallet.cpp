@@ -152,18 +152,9 @@ const Wallet& Wallet::operator=(const Wallet& rhs)
     return *this;
 }
 
-const Wallet& Wallet::operator+=(const Wallet& rhs)
+const Wallet& operator+=(Wallet& lhs, const Wallet& rhs)
 {
-    Wallet result = Wallet(*this);
-
-    for (int i = 0; i < rhs.lenght; i++)
-    {
-        result = result + rhs.master[i];
-    }
-
-    this->operator=(result);
-
-    return *this;
+    return lhs = lhs + rhs;
 }
 
 bool Wallet::operator==(const Wallet& rhs) const

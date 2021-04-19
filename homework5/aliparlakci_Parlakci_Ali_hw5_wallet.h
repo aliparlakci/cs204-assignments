@@ -25,7 +25,6 @@ public:
     Wallet operator+(const Money& rhs) const;
     Wallet operator-(const Money& rhs) const;
     const Wallet& operator=(const Wallet& rhs);
-    const Wallet& operator+=(const Wallet& rhs);
     bool operator==(const Wallet& rhs) const;
     bool operator>=(const Money& rhs) const;
 private:
@@ -33,6 +32,7 @@ private:
     int lenght;
 };
 
+const Wallet& operator+=(Wallet& lhs, const Wallet& rhs);
 bool operator<=(const Money& lhs, const Wallet& rhs);
 ostream &operator<<(ostream &lhs, const Wallet &rhs);
 bool operator==(const Money& lhs, const Money& rhs);
